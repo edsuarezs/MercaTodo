@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@hello');
 
+/*
+ * Routes to admin_user rol in this routes stay show, update, edit, create and delete a user.
+ */
 Route::get('/admin', 'Admin\UserController@index')->middleware('verified');
 Route::post('/admin/users', 'Admin\UserController@store')->name('users.store');
 Route::delete('admin/users/{user}', 'Admin\UserController@destroy')->name('users.destroy');
