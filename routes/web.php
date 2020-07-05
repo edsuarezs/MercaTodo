@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@hello');
 
-Route::get('/administer', 'UserController@index')->middleware('verified');
-Route::post('users', 'UserController@store')->name('users.store');
-Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+Route::get('/admin', 'Admin\UserController@index')->middleware('verified');
+Route::post('/admin/users', 'Admin\UserController@store')->name('users.store');
+Route::delete('admin/users/{user}', 'Admin\UserController@destroy')->name('users.destroy');
 
 
 Auth::routes(['verify' => true]);
