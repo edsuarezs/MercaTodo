@@ -13,20 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/administer', 'UserController@index');
+Route::get('/', 'HomeController@hello');
+
+Route::get('/administer', 'UserController@index')->middleware('verified');
 Route::post('users', 'UserController@store')->name('users.store');
 Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
 
 
-Route::get('/dashboard', 'DashboardController@index');
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
