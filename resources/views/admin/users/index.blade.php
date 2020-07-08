@@ -11,6 +11,7 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Roles</th>
                                 <th>Created</th>
                                 <th>Updated</th>
                                 <th>Verified</th>
@@ -24,19 +25,27 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                     <td>{{ $user->created_at }}</td>
                                     <td>{{ $user->updated_at }}</td>
                                     <td>{{ $user->email_verified_at }}</td>
                                     <td>
-                                        <form action="{{ route('users.destroy', $user) }}" method="POST">
+                                        @can('edit-users')
+                                            <a href="{{ route('admin.users.edit', $user->id) }}">Edit</a>
+                                        @endcan
+                                    </td>
+                                    <td>
+                                        @can('delete-users')
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <input
                                                 type="submit"
-                                                Value="Eliminar"
+                                                Value="Delete"
                                                 class="btn btn-sm btn-danger"
                                                 onclick="return confirm('¿Desea eliminar...?')">
                                         </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
