@@ -13,8 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    @can('active-users')
+                        Welcome to my homepage
+                        @endcan
+                    @can('disabled-users')
+                            if you can see this, your account has been disabled. If was an error please contact with mercatodo@support.com
+                        @endcan
                 </div>
             </div>
         </div>
