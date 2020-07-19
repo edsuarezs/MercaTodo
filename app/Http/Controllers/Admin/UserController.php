@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\User;
 use App\Role;
 use Gate;
@@ -52,7 +52,7 @@ class UserController extends Controller
      * @param User $user
      * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $user->roles()->sync($request->roles);
 
