@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -37,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+
     public function roles()
     {
         return $this->belongsToMany('App\Role');
@@ -60,4 +62,38 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+    public function scopeName(Builder $query, ? string $name): Builder
+    {
+        if (null !== $name) {
+            return $this->searchByField($query, 'name', "%$name%", 'like');
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string|null $email
+     * @return Builder
+     */
+    public function scopeEmail(Builder $query, ? string $email): Builder
+    {
+        if (null !== $email) {
+            return $this->searchByField($query, 'email', $email, '=');
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $field
+     * @param string $value
+     * @param string|null $operator
+     * @return Builder
+     */
+    private function searchByField(Builder $query, string $field, string $value, string $operator = null): Builder
+    {
+        return $query->where($field, $operator, $value);
+    }
 }

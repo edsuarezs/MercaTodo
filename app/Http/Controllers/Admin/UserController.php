@@ -2,25 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Users\IndexUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\User;
 use App\Role;
+use Faker\Factory;
 use Gate;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\View\View;
+use PharIo\Manifest\Application;
+
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @param IndexUserRequest $request
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(IndexUserRequest $request)
     {
-        $users = User::all();
+        $users = User::name($request->input('filter.name'))
+                ->email($request->input('filter.email'))
+                ->paginate();
 
-        return view('admin.users.index')->with('users', $users);
+        return view('admin.users.index', compact('users'));
     }
 
 
