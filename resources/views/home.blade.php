@@ -15,10 +15,9 @@
                     @endif
                     @can('active-users')
                         Welcome to my homepage
-                        @endcan
-                    @can('disabled-users')
-                            if you can see this, your account has been disabled. If was an error please contact with mercatodo@support.com
-                        @endcan
+                        @else
+                        Your account has disabled. If was an error, please contact us to ayuda@mercatodo.com
+                    @endcan
                 </div>
             </div>
         </div>
