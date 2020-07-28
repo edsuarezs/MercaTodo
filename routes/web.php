@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@hello');
+
 
 /*
  * Routes to admin_user rol in this routes stay show, update, edit, create and delete a user.
@@ -24,9 +24,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('/users', 'UserController', ['except'=>['show', 'create', 'store']]);
 });
 
-
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+Route::get('/', 'HomeController@welcome');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 

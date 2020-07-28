@@ -40,11 +40,6 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole('admin');
         });
 
-        Gate::define('disabled-users',function ($user)
-        {
-            return $user->hasRole('disabled');
-        });
-
         Gate::define('active-users',function ($user)
         {
             return $user->hasAnyRoles(['admin', 'author', 'user']);

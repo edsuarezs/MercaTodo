@@ -29,4 +29,13 @@ class IndexUserRequest extends FormRequest
             'filter.email' => 'bail|nullable|email|max:80',
         ];
     }
+    public function messages()
+    {
+        return [
+            'filter.name.min' => 'El nombre es muy corto',
+            'filter.name.max'=> 'El nombre ingresado es muy largo',
+            'filter.email.email' => 'El correo ingresado no es valido',
+            'filter.email.max'=> 'El email ingresado es muy largo',
+        ];
+    }
 }

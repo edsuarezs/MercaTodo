@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -39,11 +40,18 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
+    /**
+     * @return BelongsToMany
+     */
     public function roles()
     {
         return $this->belongsToMany('App\Role');
     }
 
+    /**
+     * @param $roles
+     * @return bool
+     */
     public function hasAnyRoles($roles)
     {
         if($this->roles()->whereIn('name', $roles)->first())
@@ -53,6 +61,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+    /**
+     * @param $role
+     * @return bool
+     */
     public function hasRole($role)
     {
         if($this->roles()->where('name', $role)->first())
@@ -62,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+    /**
+     * @param Builder $query
+     * @param string|null $name
+     * @return Builder
+     */
     public function scopeName(Builder $query, ? string $name): Builder
     {
         if (null !== $name) {

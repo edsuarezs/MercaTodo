@@ -56,7 +56,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateUserRequest $request
      * @param User $user
      * @return void
      */
