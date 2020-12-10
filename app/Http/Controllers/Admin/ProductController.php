@@ -26,11 +26,11 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::search($request->input('search'))
-            ->orderBy('id', 'asc', $request->get('sort', config('app.sort_direction')))
-            ->paginate();
+        //$products = Product::search($request->input('search'))
+        //->orderBy('id', 'asc', $request->get('sort', config('app.sort_direction')))
+        //->paginate();
 
-        return response()->view('admin.products.index', compact('products'));
+        //return response()->view('admin.products.index', compact('products'));
     }
 
     /**
